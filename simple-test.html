@@ -1,0 +1,50 @@
+<form action="http://localhost:3000/send" method="POST">
+
+    <label for="customerName">Nome do cliente:</label>
+    <input type="text" id="customerName" name="customerName">
+  
+    <label for="scheduleData">Data do agendamento:</label>
+    <input type="date" id="scheduleData" name="scheduleData">
+  
+    <label for="scheduleTime">Horário do agendamento:</label>
+    <input type="time" id="scheduleTime" name="scheduleTime">
+  
+    <label for="services">Serviços:</label>
+    <input type="text" id="services" name="services">
+  
+    <button type="submit">Enviar mensagem</button>
+
+</form>
+
+<script>
+const form = document.querySelector('form');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const customerName = document.querySelector('#customerName').value;
+  const scheduleData = document.querySelector('#scheduleData').value;
+  const scheduleTime = document.querySelector('#scheduleTime').value;
+  const services = document.querySelector('#services').value;
+
+
+  const data = {
+    customerName,
+    scheduleData,
+    scheduleTime,
+    services,
+  };
+
+  fetch('http://localhost:3000/send ', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+});
+
+</script>
